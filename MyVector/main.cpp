@@ -3,9 +3,31 @@
 
 #include <iostream>
 #include "MyVector.h"
+
+void foo()
+{
+    MyVector<int> vector1{ 100000000 };
+    for (size_t i{}; i < 100000; ++i)
+    {
+        std::cout << 1;
+    }
+}
 int main()
 {
+    //foo();
     MyVector<int> vector1{ 100 };
+    MyVector<int> vector2{ vector1 };
+    vector2 = vector1;
+    vector1.assign(50, 5);
+    vector2.at(22) = 100;
+    int a{ vector2.at(22) };
+    a = 500;
+
+    //for (size_t i{}; i < 100000; ++i)
+    {
+        std::cout << vector2.at(22);
+    }
+    
 
     std::cout << "Hello World!\n";
 }
