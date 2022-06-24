@@ -21,6 +21,8 @@ public:
 
 	//////Element access//////
 	T& at(size_t const pos);
+	T& operator[](size_t const pos);
+	const T& operator[](size_t const pos) const;
 };
 
 template<typename T>
@@ -101,7 +103,22 @@ inline T& MyVector<T>::at(size_t const pos)
 {
 	if (isCorectPosition(pos))
 		return value_[pos];
-	else
-		throw "Out of range";
+	throw "Out of range";
 	// TODO: insert return statement here
+}
+
+template<typename T>
+inline const T& MyVector<T>::operator[](size_t const pos) const
+{
+	if (isCorectPosition(pos))
+		return value_[pos];
+	throw "Out of range";
+}
+
+template<typename T>
+inline T& MyVector<T>::operator[](size_t const pos)
+{
+	if (isCorectPosition(pos))
+		return value_[pos];
+	throw "Out of range";
 }
