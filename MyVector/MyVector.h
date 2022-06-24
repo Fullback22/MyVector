@@ -27,8 +27,15 @@ public:
 	const T& front() const;
 	T& back();
 	const T& back() const;
+	T* data();
+
 	//////Capacity//////
 	bool empty() const;
+	size_t size() const;
+
+	//////Modifiers//////
+	void clear();
+	void insert(size_t const pos, const T& value);
 };
 
 template<typename T>
@@ -101,7 +108,9 @@ inline void MyVector<T>::assign(size_t const newSize, const T& value)
 	delete[] value_;
 	value_ = nullptr;
 	quantityElements_ = newSize;
-	value_ = new T[newSize]{ value };
+	value_ = new T[newSize];
+	for (size_t i{}; i < quantityElements_; ++i)
+		value_[i] = value;
 }
 
 template<typename T>
@@ -131,7 +140,7 @@ inline const T& MyVector<T>::operator[](size_t const pos) const
 template<typename T>
 inline T& MyVector<T>::front()
 {
-	if (empty)
+	if (empty())
 		throw "out of range";
 	return value_[0];
 }
@@ -139,7 +148,7 @@ inline T& MyVector<T>::front()
 template<typename T>
 inline const T& MyVector<T>::front() const
 {
-	if (empty)
+	if (empty())
 		throw "out of range";
 	return value_[0];
 }
@@ -147,7 +156,7 @@ inline const T& MyVector<T>::front() const
 template<typename T>
 inline T& MyVector<T>::back()
 {
-	if (empty)
+	if (empty())
 		throw "out of range";
 	return value_[quantityElements_ - 1];
 }
@@ -155,9 +164,15 @@ inline T& MyVector<T>::back()
 template<typename T>
 inline const T& MyVector<T>::back() const
 {
-	if (empty)
+	if (empty())
 		throw "out of range";
 	return value_[quantityElements_ - 1];
+}
+
+template<typename T>
+inline T* MyVector<T>::data()
+{
+	return value_;
 }
 
 template<typename T>
@@ -166,6 +181,49 @@ inline bool MyVector<T>::empty() const
 	if(quantityElements_>0)
 		return false;
 	return true;
+}
+
+template<typename T>
+inline size_t MyVector<T>::size() const
+{
+	return quantityElements_;
+}
+
+template<typename T>
+inline void MyVector<T>::clear()
+{
+	delete[] value_;
+	value_ = nullptr;
+	quantityElements_ = 0;
+}
+
+template<typename T>
+inline void MyVector<T>::insert(size_t const pos, const T& value)
+{
+	if (isCorectPosition(pos))
+	{
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		++quantityElements_;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < pos; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		value_[pos] = value;
+		for (size_t i{ pos + 1 }; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+	else
+		throw "out of range";
 }
 
 

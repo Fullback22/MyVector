@@ -1,5 +1,6 @@
 // MyVector.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+#include <vector>
 
 #include <iostream>
 #include "MyVector.h"
@@ -14,18 +15,22 @@ void foo()
 }
 int main()
 {
+    std::vector<int> trueVector(10,0);
+    trueVector.insert(trueVector.begin() + 2, 55);
+    //trueVector.assign(100000000, 5);
+
     //foo();
     MyVector<int> vector1{ 100 };
     MyVector<int> vector2{ vector1 };
-    vector2 = vector1;
-    vector1.assign(50, 5);
-    vector2.at(22) = 100;
-    int a{ vector2.at(22) };
+    //vector2 = vector1;
+    //vector1.assign(100000000, 5);
+    //vector2.back() = 100;
+    int a{ vector2.back() };
     a = 500;
-
-    //for (size_t i{}; i < 100000; ++i)
+    vector1.insert(2, 23);
+    for (size_t i{}; i < 50; ++i)
     {
-        std::cout << vector2.at(22);
+        std::cout << *(vector1.data() + i);
     }
     
 
