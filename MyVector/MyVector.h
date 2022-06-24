@@ -24,7 +24,9 @@ public:
 	T& operator[](size_t const pos);
 	const T& operator[](size_t const pos) const;
 	T& front();
-
+	const T& front() const;
+	T& back();
+	const T& back() const;
 	//////Capacity//////
 	bool empty() const;
 };
@@ -132,6 +134,30 @@ inline T& MyVector<T>::front()
 	if (empty)
 		throw "out of range";
 	return value_[0];
+}
+
+template<typename T>
+inline const T& MyVector<T>::front() const
+{
+	if (empty)
+		throw "out of range";
+	return value_[0];
+}
+
+template<typename T>
+inline T& MyVector<T>::back()
+{
+	if (empty)
+		throw "out of range";
+	return value_[quantityElements_ - 1];
+}
+
+template<typename T>
+inline const T& MyVector<T>::back() const
+{
+	if (empty)
+		throw "out of range";
+	return value_[quantityElements_ - 1];
 }
 
 template<typename T>
