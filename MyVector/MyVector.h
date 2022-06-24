@@ -23,6 +23,10 @@ public:
 	T& at(size_t const pos);
 	T& operator[](size_t const pos);
 	const T& operator[](size_t const pos) const;
+	T& front();
+
+	//////Capacity//////
+	bool empty() const;
 };
 
 template<typename T>
@@ -104,7 +108,14 @@ inline T& MyVector<T>::at(size_t const pos)
 	if (isCorectPosition(pos))
 		return value_[pos];
 	throw "Out of range";
-	// TODO: insert return statement here
+}
+
+template<typename T>
+inline T& MyVector<T>::operator[](size_t const pos)
+{
+	if (isCorectPosition(pos))
+		return value_[pos];
+	throw "Out of range";
 }
 
 template<typename T>
@@ -116,9 +127,19 @@ inline const T& MyVector<T>::operator[](size_t const pos) const
 }
 
 template<typename T>
-inline T& MyVector<T>::operator[](size_t const pos)
+inline T& MyVector<T>::front()
 {
-	if (isCorectPosition(pos))
-		return value_[pos];
-	throw "Out of range";
+	if (empty)
+		throw "out of range";
+	return value_[0];
 }
+
+template<typename T>
+inline bool MyVector<T>::empty() const
+{
+	if(quantityElements_>0)
+		return false;
+	return true;
+}
+
+
