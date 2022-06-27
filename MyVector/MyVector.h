@@ -36,6 +36,7 @@ public:
 	//////Modifiers//////
 	void clear();
 	void insert(size_t const pos, const T& value);
+	void insert(size_t const pos, size_t const numberRepetitions, const T& value);
 };
 
 template<typename T>
@@ -216,6 +217,39 @@ inline void MyVector<T>::insert(size_t const pos, const T& value)
 		}
 		value_[pos] = value;
 		for (size_t i{ pos + 1 }; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+	else
+		throw "out of range";
+}
+
+template<typename T>
+inline void MyVector<T>::insert(size_t const pos, size_t const numberRepetitions, const T& value)
+{
+	if (isCorectPosition(pos))
+	{
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		quantityElements_+= numberRepetitions;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < pos; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		for (size_t i{}; i < numberRepetitions; ++i)
+		{
+			value_[pos + i] = value;
+		}
+		
+		for (size_t i{ pos + numberRepetitions }; i < quantityElements_; ++i)
 		{
 			value_[i] = buferValue[i];
 		}

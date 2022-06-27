@@ -27,7 +27,7 @@ int main()
     //vector2.back() = 100;
     int a{ vector2.back() };
     a = 500;
-    vector1.insert(2, 23);
+    vector1.insert(2, 10,23);
     for (size_t i{}; i < 50; ++i)
     {
         std::cout << *(vector1.data() + i);
