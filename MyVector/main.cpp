@@ -20,17 +20,22 @@ int main()
     //trueVector.assign(100000000, 5);
 
     //foo();
-    MyVector<int> vector1{ 100 };
+    MyVector<int> vector1{ 49 };
     MyVector<int> vector2{ vector1 };
     //vector2 = vector1;
     //vector1.assign(100000000, 5);
     //vector2.back() = 100;
     int a{ vector2.back() };
     a = 500;
-    vector1.insert(2, 10,23);
-    for (size_t i{}; i < 50; ++i)
+    //vector1.insert(2, 2,23);
+    //vector1.erase(3);
+    vector1.pushBack(3);
+    vector1.pushBack(3);
+    vector1.popBack();
+    vector1.resize(20, 5);
+    for (size_t i{}; i < vector1.size(); ++i)
     {
-        std::cout << *(vector1.data() + i);
+        std::cout << vector1[i];
     }
     
 

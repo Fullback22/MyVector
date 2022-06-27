@@ -37,6 +37,11 @@ public:
 	void clear();
 	void insert(size_t const pos, const T& value);
 	void insert(size_t const pos, size_t const numberRepetitions, const T& value);
+	void erase(size_t const pos);
+	void pushBack(const T& value);
+	void popBack();
+	void resize(size_t const newSize);
+	void resize(size_t const newSize, const T& value);
 };
 
 template<typename T>
@@ -258,6 +263,159 @@ inline void MyVector<T>::insert(size_t const pos, size_t const numberRepetitions
 	}
 	else
 		throw "out of range";
+}
+
+template<typename T>
+inline void MyVector<T>::erase(size_t const pos)
+{
+	if (isCorectPosition(pos))
+	{
+		size_t sizeBufer{ quantityElements_ - 1 };
+		T* buferValue{ new T[sizeBufer] };
+		for (size_t i{}; i < pos; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		for (size_t i{ pos }; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i + 1];
+		}
+		delete[] value_;
+		quantityElements_ = sizeBufer;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+	else
+		throw "out of range";
+}
+
+template<typename T>
+inline void MyVector<T>::pushBack(const T& value)
+{
+	T* buferValue{ new T[quantityElements_] };
+	for (size_t i{}; i < quantityElements_; ++i)
+	{
+		buferValue[i] = value_[i];
+	}
+	delete[] value_;
+	value_ = new T[quantityElements_ + 1];
+	for (size_t i{}; i < quantityElements_; ++i)
+	{
+		value_[i] = buferValue[i];
+	}
+	value_[quantityElements_] = value;
+	++quantityElements_;
+	delete[] buferValue;
+	buferValue = nullptr;
+}
+
+template<typename T>
+inline void MyVector<T>::popBack()
+{
+	if (quantityElements_ > 0)
+	{
+		--quantityElements_;
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+}
+
+template<typename T>
+inline void MyVector<T>::resize(size_t const newSize)
+{
+	if (quantityElements_ > newSize)
+	{
+		quantityElements_ = newSize;
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+	else if (quantityElements_ < newSize)
+	{
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		value_ = new T[newSize]{};
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+		quantityElements_ = newSize;
+	}
+}
+
+template<typename T>
+inline void MyVector<T>::resize(size_t const newSize, const T& value)
+{
+	if (quantityElements_ > newSize)
+	{
+		quantityElements_ = newSize;
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		value_ = new T[quantityElements_];
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+	}
+	else if (quantityElements_ < newSize)
+	{
+		T* buferValue{ new T[quantityElements_] };
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			buferValue[i] = value_[i];
+		}
+		delete[] value_;
+		value_ = new T[newSize];
+		for (size_t i{}; i < quantityElements_; ++i)
+		{
+			value_[i] = buferValue[i];
+		}
+		for (size_t i{ quantityElements_ }; i < newSize; ++i)
+		{
+			value_[i] = value;
+		}
+		delete[] buferValue;
+		buferValue = nullptr;
+		quantityElements_ = newSize;
+	}
 }
 
 
