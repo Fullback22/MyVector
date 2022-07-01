@@ -5,7 +5,7 @@ class MyVector
 	T* value_{};
 	size_t quantityElements_{};
 
-	bool isCorectPosition(size_t const pos);
+	bool isCorectPosition(size_t const pos) const;
 public:
 	//////Member functions//////
 	MyVector();
@@ -45,7 +45,7 @@ public:
 };
 
 template<typename T>
-inline bool MyVector<T>::isCorectPosition(size_t const pos)
+inline bool MyVector<T>::isCorectPosition(size_t const pos) const
 {
 	if(pos>=quantityElements_)
 		return false;
