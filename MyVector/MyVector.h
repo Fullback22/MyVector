@@ -10,6 +10,7 @@ public:
 	//////Member functions//////
 	MyVector();
 	MyVector(size_t const size);
+	MyVector(size_t const size, const T& value);
 	MyVector(const MyVector<T>& temp);
 	MyVector(MyVector<T>&& temp);
 	~MyVector();
@@ -62,6 +63,15 @@ inline MyVector<T>::MyVector(size_t const size)
 {
 	value_ = new T[size]{};
 	quantityElements_ = size;
+}
+
+template<typename T>
+inline MyVector<T>::MyVector(size_t const size, const T& value)
+{
+	quantityElements_ = size;
+	value_ = new T[quantityElements_];
+	for (size_t i{}; i < quantityElements_; ++i)
+		value_[i] = value;
 }
 
 template<typename T>
