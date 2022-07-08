@@ -233,7 +233,7 @@ inline void MyVector<T>::insert(size_t const pos, const T& value)
 		value_[pos] = value;
 		for (size_t i{ pos + 1 }; i < quantityElements_; ++i)
 		{
-			value_[i] = buferValue[i];
+			value_[i] = buferValue[i - 1];
 		}
 		delete[] buferValue;
 		buferValue = nullptr;
@@ -266,7 +266,7 @@ inline void MyVector<T>::insert(size_t const pos, size_t const numberRepetitions
 		
 		for (size_t i{ pos + numberRepetitions }; i < quantityElements_; ++i)
 		{
-			value_[i] = buferValue[i];
+			value_[i] = buferValue[i - 1];
 		}
 		delete[] buferValue;
 		buferValue = nullptr;
