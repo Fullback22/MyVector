@@ -94,9 +94,7 @@ inline MyVector<T>::MyVector(MyVector<T>&& temp)
 template<typename T>
 inline MyVector<T>::~MyVector()
 {
-	quantityElements_ = 0;
-	delete[] value_;
-	value_ = nullptr;
+	clear();
 }
 
 template<typename T>
@@ -208,9 +206,12 @@ inline size_t MyVector<T>::size() const
 template<typename T>
 inline void MyVector<T>::clear()
 {
-	delete[] value_;
-	value_ = nullptr;
-	quantityElements_ = 0;
+	if (quantityElements_ > 0)
+	{
+		delete[] value_;
+		value_ = nullptr;
+		quantityElements_ = 0;
+	}
 }
 
 template<typename T>
